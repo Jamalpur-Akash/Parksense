@@ -1,6 +1,7 @@
 package com.parksense.backend.model;
 
 import jakarta.persistence.*;
+import org.locationtech.jts.geom.Polygon;
 
 @Entity
 @Table(name = "zones")
@@ -22,6 +23,9 @@ public class Zone {
     @Column(name = "photo_url")
     private String photoUrl;
 
+    @Column(columnDefinition = "geometry(Polygon,4326)")
+    private Polygon boundary;
+
     // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -40,4 +44,7 @@ public class Zone {
 
     public String getPhotoUrl() { return photoUrl; }
     public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
+
+    public Polygon getBoundary() { return boundary; }
+    public void setBoundary(Polygon boundary) { this.boundary = boundary; }
 }
