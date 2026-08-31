@@ -1,3 +1,10 @@
+---
+title: parksense-ml-service
+emoji: 🅿️
+sdk: docker
+app_port: 7860
+---
+
 # ParkSense — AI-Assisted No-Parking Alert System
 
 Detects when a car is stationary in a no-parking zone and 
