@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 public class ParkingController {
 
     private final HttpClient httpClient = HttpClient.newBuilder()
