@@ -78,7 +78,7 @@ Spring Boot API (Render)  ───────────►  Neon PostgreSQL
 
 ### Clone the repository
 ```bash
-git clone https://github.com/<your-username>/parksense.git
+git clone https://github.com/Jamalpur-Akash/Parksense.git
 cd parksense
 ```
 
