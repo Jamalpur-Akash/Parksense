@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './App.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
 function formatDistance(meters) {
   return meters < 1000 ? `${Math.round(meters)} m` : `${(meters / 1000).toFixed(1)} km`;
 }
@@ -39,7 +41,7 @@ function App() {
 
   const checkLocation = useCallback(async (lat, lng) => {
     try {
-      const res = await fetch('http://localhost:8080/check-location', {
+      const res = await fetch(`${API_URL}/check-location`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lat, lng }),
@@ -56,7 +58,7 @@ function App() {
     setNearbyError(null);
     setNearbyParking([]);
     try {
-      const res = await fetch(`http://localhost:8080/parking/nearby?lat=${lat}&lng=${lng}`);
+      const res = await fetch(`${API_URL}/parking/nearby?lat=${lat}&lng=${lng}`);
       if (!res.ok) throw new Error('Backend error');
       const data = await res.json();
       setNearbyParking(data);
@@ -73,7 +75,7 @@ function App() {
     setPendingLoading(true);
     setPendingError(null);
     try {
-      const res = await fetch(`http://localhost:8080/zones/pending?adminKey=${encodeURIComponent(key)}`);
+      const res = await fetch(`${API_URL}/zones/pending?adminKey=${encodeURIComponent(key)}`);
       if (res.status === 403) {
         setPendingError('Invalid admin key.');
         setPendingZones([]);
@@ -189,7 +191,7 @@ function App() {
       formData.append('radiusMeters', 15);
       formData.append('reporterId', getReporterId());
 
-      const res = await fetch('http://localhost:8080/zones/report-with-photo', {
+      const res = await fetch(`${API_URL}/zones/report-with-photo`, {
         method: 'POST',
         body: formData,
       });
@@ -204,7 +206,7 @@ function App() {
 
   const handleAdminAction = async (id, action) => {
     try {
-      await fetch(`http://localhost:8080/zones/${id}/${action}?adminKey=${encodeURIComponent(adminKey)}`, {
+      await fetch(`${API_URL}/zones/${id}/${action}?adminKey=${encodeURIComponent(adminKey)}`, {
         method: 'POST',
       });
       fetchPendingZones(adminKey);
@@ -404,7 +406,7 @@ function App() {
             <div key={zone.id} className="admin-zone-card">
               {zone.photoUrl && (
                 <img
-                  src={`http://localhost:8080${zone.photoUrl}`}
+                  src={`${API_URL}${zone.photoUrl}`}
                   alt={zone.name}
                   className="admin-zone-img"
                 />
