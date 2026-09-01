@@ -94,6 +94,9 @@ public class ParkingController {
 
             } catch (Exception e) {
                 lastError = e;
+                System.err.println("Overpass mirror failed: " + mirror
+                        + " | Exception type: " + e.getClass().getName()
+                        + " | Message: " + e.getMessage());
             }
         }
 
