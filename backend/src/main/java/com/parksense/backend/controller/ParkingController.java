@@ -51,6 +51,7 @@ public class ParkingController {
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(mirror))
                         .header("Content-Type", "application/x-www-form-urlencoded")
+                        .header("User-Agent", "ParkSense/1.0 (student final-year project; no-parking-zone alert app)")
                         .POST(HttpRequest.BodyPublishers.ofString(
                                 "data=" + URLEncoder.encode(query, StandardCharsets.UTF_8)))
                         .build();
