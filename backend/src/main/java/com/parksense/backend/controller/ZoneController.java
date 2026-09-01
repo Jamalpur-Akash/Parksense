@@ -39,7 +39,10 @@ public class ZoneController {
     // Simple shared-secret gate for admin actions — an honest MVP simplification,
     // not real authentication. Fine to state as-is; real login is future scope.
     @Value("${admin.key}")
-private String ADMIN_KEY;
+    private String ADMIN_KEY;
+
+    @Value("${ml.service.url}")
+    private String mlServiceUrl;
 
     private final ZoneRepository zoneRepository;
     private final RestTemplate restTemplate = new RestTemplate();
@@ -94,7 +97,7 @@ private String ADMIN_KEY;
             HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
             ResponseEntity<Map> response = restTemplate.postForEntity(
-                    "http://localhost:8000/detect-sign", requestEntity, Map.class);
+                    mlServiceUrl + "/detect-sign", requestEntity, Map.class);
 
             mlResult = response.getBody();
         } catch (Exception e) {
